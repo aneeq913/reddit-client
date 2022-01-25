@@ -67,7 +67,7 @@ export default function Header() {
                     component='div'
                     sx={{ flexGrow: 1, display: {sm: 'block'} }}
                 >
-                    Reddit Client
+                    Reddit Searcher
                 </Typography>
 
                 {/* <Search>
