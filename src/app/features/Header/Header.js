@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchTerm } from '../../app/redditSlice';
+import { setSearchTerm } from '../../store/redditSlice';
 import './Header.css';
 // MUI Imports
 import AppBar from '@mui/material/AppBar';
