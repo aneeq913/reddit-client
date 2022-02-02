@@ -1,89 +1,63 @@
-import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchTerm } from '../../app/redditSlice';
+import './Header.css';
+// MUI Imports
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import RedditIcon from '@mui/icons-material/Reddit';
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
-  
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-  
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
-  }));
+import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
 
 export default function Header() {
-  return (
-      <Box sx={{ flexGrow: 1 }}>
-          <AppBar position='static' color='secondary'>
-              <Toolbar>
-                  <RedditIcon 
-                    fontSize='large'
-                    sx={{ mr: 2 }} 
-                />
-                <Typography
-                    variant='h6'
-                    noWrap
-                    component='div'
-                    sx={{ flexGrow: 1, display: {sm: 'block'} }}
-                >
-                    Reddit Searcher
-                </Typography>
 
-                {/* <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder='Search...'
-                        inputProps={{ 'aria-label': 'search' }} 
-                    />
-                </Search> */}
-                <IconButton size='large' aria-label='search' color='inherit'>
-                  <SearchIcon />
-                </IconButton>
-              </Toolbar>
-          </AppBar>
-      </Box>
+    //Local State
+    const [searchTermLocal, setSearchTermLocal] = useState('');
+    const searchTerm = useSelector((state) => state.reddit.searchTerm);
+    const dispatch = useDispatch();
+
+    const onSearchTermChange = (e) => {
+        setSearchTermLocal(e.target.value);
+    };
+
+    useEffect(() => {
+        setSearchTermLocal(searchTerm);
+    }, [searchTerm]);
+
+    const onSearchTermSubmit = (e) => {
+        e.preventDefault();
+        dispatch(setSearchTerm(searchTermLocal));
+    };
+
+  return(
+      <div>
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position='static' color='secondary'>
+                <Toolbar>
+                <RedditIcon fontSize="large" sx={{ marginRight: 2 }} />
+                    <Typography variant='h6' component="div" sx={{ flexGrow: 1, display: {sm: "block"}, marginRight: 1 }} >
+                        Reddit Searcher
+                    </Typography>
+
+                    {/* <SearchIcon fontSize="large" sx={{ marginRight: 2 }} />
+                    <TextField id="outlined-basic" label="Search" variant="outlined" /> */}
+
+                    <TextField id='outlined-basic' label='Search' size='small' sx={{ width: '35%' }} onChange={onSearchTermChange} />
+                    <button type='submit' onClick={onSearchTermSubmit}>
+                        <SearchIcon  />
+                    </button>
+                </Toolbar>
+            </AppBar>
+        </Box>
+        
+        {/* Testing
+        <div>{ searchTermLocal }</div>
+        <br />
+        <div>{ searchTerm }</div> 
+        */}
+      </div>
   );
 }
+
