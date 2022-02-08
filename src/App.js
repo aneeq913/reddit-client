@@ -26,7 +26,6 @@ function App() {
           <Item>xs=4</Item>
         </Grid>
 
-
       </Grid>
     </div>
   );
