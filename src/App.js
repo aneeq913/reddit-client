@@ -1,9 +1,11 @@
-import { Grid, Paper } from '@mui/material';
+import { CardContent, Grid, Paper } from '@mui/material';
 import React from 'react';
 import './App.css';
 import Header from './app/features/Header/Header';
 import { styled } from '@mui/material/styles';
 
+import Card from '@mui/material/Card';
+import { Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -27,6 +29,31 @@ function App() {
         </Grid>
 
       </Grid>
+
+      <br/>
+      <Card>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="error" gutterBottom>
+            This is a card
+          </Typography>
+        </CardContent>
+      </Card>
+      <br/>
+      <Card>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="error" gutterBottom>
+            This is a card
+          </Typography>
+        </CardContent>
+      </Card>
+      <br/>
+      <Card>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="error" gutterBottom>
+            This is a card
+          </Typography>
+        </CardContent>
+      </Card>
     </div>
   );
 }

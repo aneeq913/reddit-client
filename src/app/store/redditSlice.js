@@ -1,5 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
+
 // State for the slice.
 const initialState = {
     searchTerm: '',
